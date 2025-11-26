@@ -5,14 +5,13 @@ from werkzeug.security import generate_password_hash
 import os
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("FLASK_SECRET", "dev-secret-change-me")  # change in real apps
+app.secret_key = os.environ.get("FLASK_SECRET", "dev-secret-change-me")  
 
-# --- Database settings: update to match your phpMyAdmin MySQL account ---
 DB_CONFIG = {
     "host": "localhost",
-    "database": "flask_app_db",   # the database you created in phpMyAdmin
-    "user": "root",               # or the dedicated user you created in phpMyAdmin
-    "password": "",               # put the password for that user here
+    "database": "flask_app_db",   # the database We created in phpMyAdmin
+    "user": "root",               
+    "password": "",              
     "charset": "utf8mb4",
 }
 
@@ -48,7 +47,7 @@ def signup():
             flash("Password must be at least 6 characters.", "danger")
             return redirect(url_for("signup"))
 
-        # Hash the password before storing
+        
         password_hash = generate_password_hash(password)
 
         conn = get_db_connection()
@@ -77,10 +76,10 @@ def signup():
             except Exception:
                 pass
 
-    # GET request: render signup form
+    
     return render_template("signup.html")
 
 
 if __name__ == "__main__":
-    # debug=True is helpful during development; remove for production
+
     app.run(debug=True)
